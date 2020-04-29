@@ -8,25 +8,25 @@
 #define VESSEL_H_
 
 using std::cout;
-//ÈİÆ÷
+//å®¹å™¨
 template<class Type>
 class Vessel
 {
-	//ÓÎ±ê
+	//æ¸¸æ ‡
 	Node<Type>* m_head;
 	Node<Type>* m_rear;
 
 protected:
 
-	//ÊôĞÔ
-	int m_maxsize;		//×î´ó´óĞ¡
-	int m_size;			//µ±Ç°´óĞ¡
+	//å±æ€§
+	int m_maxsize;		//æœ€å¤§å¤§å°
+	int m_size;			//å½“å‰å¤§å°
 
-	//±ê¼Ç
-	bool m_empty_flag;	//Îª¿Õ±ê¼Ç
-	bool m_full_flag;	//ÎªÂú±ê¼Ç
+	//æ ‡è®°
+	bool m_empty_flag;	//ä¸ºç©ºæ ‡è®°
+	bool m_full_flag;	//ä¸ºæ»¡æ ‡è®°
 
-	//µü´úÆ÷
+	//è¿­ä»£å™¨
 	Iter<Node<Type>> m_iterator;
 	virtual void iter_reset() { m_iterator = m_head; };
 	virtual Iter<Node<Type>> begin(Iter<Node<Type>> iter) { m_head = *iter; return Iter<Node<Type>>(m_head); };
@@ -35,7 +35,7 @@ protected:
 public:
 	std::string name;
 
-	//¹¹Ôìº¯Êı
+	//æ„é€ å‡½æ•°
 	Vessel();
 	Vessel(const int);
 	Vessel(const Vessel<Type>&);
@@ -47,7 +47,7 @@ public:
 	virtual Iter<Node<Type>> end()const { return m_rear; };
 
 
-	//³ÉÔ±·½·¨
+	//æˆå‘˜æ–¹æ³•
 	virtual bool append(const Type&);
 	virtual bool remove(const Type);
 	virtual Type max()const;
@@ -59,19 +59,19 @@ public:
 	virtual bool is_empty()const { return m_empty_flag; };
 	virtual bool is_full()const { return m_full_flag; };
 
-	//²Ù×÷·û
+	//æ“ä½œç¬¦
 	virtual bool operator=(const Vessel<Type>);
 	virtual bool operator=(const Vessel<Type>*);
 	friend const Vessel<Type>* operator+(const Vessel<Type>& v1,const Vessel<Type>& v2)
 	{
-		//Îª¿Õ¼ì²â
+		//ä¸ºç©ºæ£€æµ‹
 		if (v1.is_empty())
 			return &v2;
 
 		if (v2.is_empty())
 			return &v1;
 
-		//´´½¨ĞÂÈİÆ÷
+		//åˆ›å»ºæ–°å®¹å™¨
 		Vessel<Type>* v = NULL;
 		if (v1.maxsize() != -1 && v2.maxsize() != -1)
 			v = new Vessel<Type>(v1.maxsize() + v2.maxsize());
@@ -84,7 +84,7 @@ public:
 		auto p_v1 = v1.begin();
 		auto p_v2 = v2.begin();
 
-		//¸´ÖÆv1
+		//å¤åˆ¶v1
 		for (int i = 0; i < v1.size(); i++)
 		{
 			v->append(p_v1->data());
@@ -92,7 +92,7 @@ public:
 			//p_v1.set(p_v1.iterator()->next());
 		}
 
-		//¸´ÖÆv2
+		//å¤åˆ¶v2
 		for (int i = 0; i < v2.size(); i++)
 		{
 			v->append(p_v2->data());
@@ -134,44 +134,44 @@ public:
 };
 
 /*****************************************************/
-/*****************·½·¨ÊµÏÖ****************************/
+/*****************æ–¹æ³•å®ç°****************************/
 
-//ÎŞÏŞ´óĞ¡ÈİÆ÷³õÊ¼»¯
+//æ— é™å¤§å°å®¹å™¨åˆå§‹åŒ–
 template<class Type>
 Vessel<Type>::Vessel()
 {
-	//name = "ÁÙÊ±¶ÔÏó";
+	//name = "ä¸´æ—¶å¯¹è±¡";
 	m_head = NULL;
 	m_iterator = m_head;
 	m_rear = NULL;
-	m_maxsize = -1;		//ÎŞÏŞ´óĞ¡
+	m_maxsize = -1;		//æ— é™å¤§å°
 	m_size = 0;
 	m_empty_flag = true;
 	m_full_flag = false;
-	//cout << "ÎŞÏŞ´óĞ¡ÈİÆ÷¹¹ÔìÍê³É\n";
+	//cout << "æ— é™å¤§å°å®¹å™¨æ„é€ å®Œæˆ\n";
 }
 
-//ÓĞÏŞ´óĞ¡ÈİÆ÷³õÊ¼»¯
+//æœ‰é™å¤§å°å®¹å™¨åˆå§‹åŒ–
 template<class Type>
 Vessel<Type>::Vessel(const int ms)
 {
-	//name = "ÁÙÊ±¶ÔÏó";
+	//name = "ä¸´æ—¶å¯¹è±¡";
 	m_head = NULL;
 	m_iterator = m_head;
 	m_rear = NULL;
-	m_maxsize = ms;		//ÓĞÏŞ´óĞ¡
+	m_maxsize = ms;		//æœ‰é™å¤§å°
 	m_size = 0;
 	m_empty_flag = true;
 	m_full_flag = false;
-	//cout << "ÓĞÏŞ´óĞ¡ÈİÆ÷¹¹ÔìÍê³É\n";
+	//cout << "æœ‰é™å¤§å°å®¹å™¨æ„é€ å®Œæˆ\n";
 }
 
-//¸´ÖÆ¹¹Ôì
+//å¤åˆ¶æ„é€ 
 template<class Type>
 Vessel<Type>::Vessel(const Vessel<Type>& v)
 {
-	//name = v.name+"µÄÁÙÊ±¶ÔÏó";
-	//¸´ÖÆÍ·½áµã
+	//name = v.name+"çš„ä¸´æ—¶å¯¹è±¡";
+	//å¤åˆ¶å¤´ç»“ç‚¹
 	m_head = new Node<Type>;
 	iter_reset();
 
@@ -185,48 +185,48 @@ Vessel<Type>::Vessel(const Vessel<Type>& v)
 	Node<Type>* p_v = v.m_head->next();
 	for (int i = 1; i < v.m_size; i++)
 	{
-		m_rear->set_next(new Node<Type>); //ÉèÖÃÖ¸ÕëÓò£¬ÖÆÔìĞÂ½Úµã
+		m_rear->set_next(new Node<Type>); //è®¾ç½®æŒ‡é’ˆåŸŸï¼Œåˆ¶é€ æ–°èŠ‚ç‚¹
 		Node<Type>* temp = m_rear;
-		m_rear = m_rear->next();		//p_thisÒÆ¶¯µ½ĞÂ½Úµã
-		m_rear->set_data(p_v->data());	//ĞÂ½ÚµãÉèÖÃÊı¾İ
-		m_rear->set_next(NULL);			//ĞÂ½ÚµãÖ¸ÕëÓòÖÃ¿Õ
+		m_rear = m_rear->next();		//p_thisç§»åŠ¨åˆ°æ–°èŠ‚ç‚¹
+		m_rear->set_data(p_v->data());	//æ–°èŠ‚ç‚¹è®¾ç½®æ•°æ®
+		m_rear->set_next(NULL);			//æ–°èŠ‚ç‚¹æŒ‡é’ˆåŸŸç½®ç©º
 		m_rear->set_pre(temp);
 		m_rear->set_index(p_v->index());
 
 		p_v = p_v->next();
 	}
 
-	//¸´ÖÆ´óĞ¡ĞÅÏ¢
+	//å¤åˆ¶å¤§å°ä¿¡æ¯
 	m_maxsize = v.m_maxsize;
 	m_size = v.m_size;
 
-	//¸´ÖÆ×´Ì¬·û
+	//å¤åˆ¶çŠ¶æ€ç¬¦
 	m_empty_flag = v.m_empty_flag;
 	m_full_flag = v.m_full_flag;
-	//cout<<v.name << "µÄ¸´ÖÆ¹¹ÔìÍê³É\n";
+	//cout<<v.name << "çš„å¤åˆ¶æ„é€ å®Œæˆ\n";
 }
 
-//Í¬Àà½Ó¹Ü(*)
+//åŒç±»æ¥ç®¡(*)
 template<class Type>
 Vessel<Type>::Vessel(const Vessel<Type>* v)
 {
-	//Ö¸Õë¸´ÖÆ
+	//æŒ‡é’ˆå¤åˆ¶
 	m_head = v->m_head;
 	m_rear = v->m_rear;
 
-	//¸´ÖÆ´óĞ¡ĞÅÏ¢
+	//å¤åˆ¶å¤§å°ä¿¡æ¯
 	m_maxsize = v->m_maxsize;
 	m_size = v->m_size;
 
-	//¸´ÖÆ×´Ì¬·û
+	//å¤åˆ¶çŠ¶æ€ç¬¦
 	m_empty_flag = v->m_empty_flag;
 	m_full_flag = v->m_full_flag;
 
-	//cout << v->name << "µÄ*¸´ÖÆ¹¹ÔìÍê³É\n";
-	//cout << name << "½Ó¹ÜÁË" << v->name << "\n";
+	//cout << v->name << "çš„*å¤åˆ¶æ„é€ å®Œæˆ\n";
+	//cout << name << "æ¥ç®¡äº†" << v->name << "\n";
 }
 
-//ÈİÆ÷Îö¹¹
+//å®¹å™¨ææ„
 template<class Type>
 Vessel<Type>::~Vessel()
 {
@@ -237,25 +237,25 @@ Vessel<Type>::~Vessel()
 		delete p;   //free(p);
 		p = m_head;
 	}
-	//cout << name << "Îö¹¹Íê³É\n";
+	//cout << name << "ææ„å®Œæˆ\n";
 }
 
-//µÈÓÚ²Ù×÷·û
+//ç­‰äºæ“ä½œç¬¦
 template<class Type>
 bool Vessel<Type>::operator=(const Vessel<Type> v)
 {
-	//cout << "µÈÓÚ²Ù×÷·ûÏìÓ¦\n";
-	//ÅĞ¶ÏÊÇ·ñÔ½½ç
+	//cout << "ç­‰äºæ“ä½œç¬¦å“åº”\n";
+	//åˆ¤æ–­æ˜¯å¦è¶Šç•Œ
 	if (m_maxsize != -1 && m_maxsize < v.m_maxsize)
 		return false;
 
-	//É¾³ıÔ­ÓĞÔªËØ
+	//åˆ é™¤åŸæœ‰å…ƒç´ 
 	if (!is_empty())
 		empty();
 
-	//¸´ÖÆÍ·½áµã
+	//å¤åˆ¶å¤´ç»“ç‚¹
 	m_head = new Node<Type>;
-	iter_reset();		//ÉèÖÃµü´úÆ÷
+	iter_reset();		//è®¾ç½®è¿­ä»£å™¨
 	m_head->set_data(v.m_head->data());
 	m_head->set_next(NULL);
 	m_head->set_pre(NULL);
@@ -266,60 +266,60 @@ bool Vessel<Type>::operator=(const Vessel<Type> v)
 
 	for (int i = 1; i < v.m_size; i++)
 	{
-		m_rear->set_next(new Node<Type>); //ÉèÖÃÖ¸ÕëÓò£¬ÖÆÔìĞÂ½Úµã
+		m_rear->set_next(new Node<Type>); //è®¾ç½®æŒ‡é’ˆåŸŸï¼Œåˆ¶é€ æ–°èŠ‚ç‚¹
 		Node<Type>* temp = m_rear;
-		m_rear = m_rear->next();		//p_thisÒÆ¶¯µ½ĞÂ½Úµã
-		m_rear->set_data(p_v->data());	//ĞÂ½ÚµãÉèÖÃÊı¾İ
-		m_rear->set_next(NULL);			//ĞÂ½ÚµãÖ¸ÕëÓòÖÃ¿Õ
+		m_rear = m_rear->next();		//p_thisç§»åŠ¨åˆ°æ–°èŠ‚ç‚¹
+		m_rear->set_data(p_v->data());	//æ–°èŠ‚ç‚¹è®¾ç½®æ•°æ®
+		m_rear->set_next(NULL);			//æ–°èŠ‚ç‚¹æŒ‡é’ˆåŸŸç½®ç©º
 		m_rear->set_pre(temp);
 		m_rear->set_index(p_v->index());
 
 		p_v = p_v->next();
 	}
 
-	//¸´ÖÆ´óĞ¡ĞÅÏ¢
+	//å¤åˆ¶å¤§å°ä¿¡æ¯
 	m_maxsize = v.m_maxsize;
 	m_size = v.m_size;
 
-	//¸´ÖÆ×´Ì¬·û
+	//å¤åˆ¶çŠ¶æ€ç¬¦
 	m_empty_flag = v.m_empty_flag;
 	m_full_flag = v.m_full_flag;
 
-	//cout << "µÈÓÚ²Ù×÷·ûÍê³É\n";
+	//cout << "ç­‰äºæ“ä½œç¬¦å®Œæˆ\n";
 	return true;
 }
 
-//µÈÓÚ²Ù×÷·û(*)
+//ç­‰äºæ“ä½œç¬¦(*)
 template<class Type>
 bool Vessel<Type>::operator=(const Vessel<Type>* v)
 {
-	//cout << "*µÈÓÚ²Ù×÷·ûÏìÓ¦\n";
-	//ÅĞ¶ÏÊÇ·ñÔ½½ç
+	//cout << "*ç­‰äºæ“ä½œç¬¦å“åº”\n";
+	//åˆ¤æ–­æ˜¯å¦è¶Šç•Œ
 	if (m_maxsize != -1 && m_maxsize < v->m_maxsize)
 		return false;
 
-	//É¾³ıÔ­ÓĞÔªËØ
+	//åˆ é™¤åŸæœ‰å…ƒç´ 
 	if (!is_empty())
 		empty();
 
-	//Ö¸Õë¸´ÖÆ
+	//æŒ‡é’ˆå¤åˆ¶
 	m_head = v->m_head;
 	m_rear = v->m_rear;
 
-	//¸´ÖÆ´óĞ¡ĞÅÏ¢
+	//å¤åˆ¶å¤§å°ä¿¡æ¯
 	m_maxsize = v->m_maxsize;
 	m_size = v->m_size;
 
-	//¸´ÖÆ×´Ì¬·û
+	//å¤åˆ¶çŠ¶æ€ç¬¦
 	m_empty_flag = v->m_empty_flag;
 	m_full_flag = v->m_full_flag;
 
-	//cout << "*µÈÓÚ²Ù×÷·ûÍê³É\n";
-	//cout << name << "½Ó¹ÜÁË" << v->name<<"\n";
+	//cout << "*ç­‰äºæ“ä½œç¬¦å®Œæˆ\n";
+	//cout << name << "æ¥ç®¡äº†" << v->name<<"\n";
 	return true;
 }
 
-//×î´óÖµ
+//æœ€å¤§å€¼
 template<class Type>
 Type Vessel<Type>::max()const
 {
@@ -334,7 +334,7 @@ Type Vessel<Type>::max()const
 	return temp;
 }
 
-//×îĞ¡Öµ
+//æœ€å°å€¼
 template<class Type>
 Type Vessel<Type>::min()const
 {
@@ -349,7 +349,7 @@ Type Vessel<Type>::min()const
 	return temp;
 }
 
-//ÖÃ¿Õ
+//ç½®ç©º
 template<class Type>
 void Vessel<Type>::empty()
 {
@@ -361,69 +361,69 @@ void Vessel<Type>::empty()
 		p = m_head;
 	}
 	m_rear = NULL;
-	//¸üĞÂ´óĞ¡ĞÅÏ¢
+	//æ›´æ–°å¤§å°ä¿¡æ¯
 	m_size = 0;
 
-	//¸üĞÂ×´Ì¬·û
+	//æ›´æ–°çŠ¶æ€ç¬¦
 	m_empty_flag = true;
 	m_full_flag = false;
 
-	//¸üĞÂµü´úÆ÷
+	//æ›´æ–°è¿­ä»£å™¨
 	m_iterator = NULL;
-	//cout << "ÖÃ¿ÕÏìÓ¦\n";
+	//cout << "ç½®ç©ºå“åº”\n";
 }
 
-//Ìí¼ÓĞÂµÄÔªËØ
+//æ·»åŠ æ–°çš„å…ƒç´ 
 template<class Type>
 bool Vessel<Type>::append(const Type& d)
 {
 	if (is_full())
 		return false;
 
-	if (m_head == NULL)				//ÈİÆ÷Ã»ÓĞÔªËØµÄÇé¿ö
+	if (m_head == NULL)				//å®¹å™¨æ²¡æœ‰å…ƒç´ çš„æƒ…å†µ
 	{
-		//´´½¨ĞÂ½Úµã
+		//åˆ›å»ºæ–°èŠ‚ç‚¹
 		m_head = new Node<Type>;
 		iter_reset();
 
-		//¸üĞÂÎ²½áµã
+		//æ›´æ–°å°¾ç»“ç‚¹
 		m_rear = m_head;
 
-		//ÉèÖÃ½ÚµãÄÚÈİ
+		//è®¾ç½®èŠ‚ç‚¹å†…å®¹
 		m_head->set_data(d);
 		m_head->set_next(NULL);
 		m_head->set_pre(NULL);
 		//m_head->set_index(m_head->index() + 1);
 
-		//¸üĞÂµ±Ç°´óĞ¡
+		//æ›´æ–°å½“å‰å¤§å°
 		m_size += 1;
 
-		//¸üĞÂÈİÆ÷±ê¼Ç
+		//æ›´æ–°å®¹å™¨æ ‡è®°
 		if (m_size == m_maxsize)
 			m_full_flag = true;
 		m_empty_flag = false;
 	}
-	else							//ÓĞÖÁÉÙÒ»¸öÔªËØµÄÇé¿ö
+	else							//æœ‰è‡³å°‘ä¸€ä¸ªå…ƒç´ çš„æƒ…å†µ
 	{
-		//´´½¨ĞÂ½Úµã
+		//åˆ›å»ºæ–°èŠ‚ç‚¹
 		m_rear->set_next(new Node<Type>);
 
-		//±£´æÎ²Ö¸Õë
+		//ä¿å­˜å°¾æŒ‡é’ˆ
 		Node<Type>* temp = m_rear;
 
-		//¸üĞÂÎ²Ö¸Õë
+		//æ›´æ–°å°¾æŒ‡é’ˆ
 		m_rear = m_rear->next();
 
-		//ÉèÖÃ½ÚµãÄÚÈİ
+		//è®¾ç½®èŠ‚ç‚¹å†…å®¹
 		m_rear->set_data(d);
 		m_rear->set_next(NULL);
 		m_rear->set_pre(temp);
-		//m_rear->set_index(m_rear->pre()->index() + 1);		//vÎŞĞò£¬²»Î¬»¤index
+		//m_rear->set_index(m_rear->pre()->index() + 1);		//væ— åºï¼Œä¸ç»´æŠ¤index
 
-		//¸üĞÂµ±Ç°´óĞ¡
+		//æ›´æ–°å½“å‰å¤§å°
 		m_size += 1;
 
-		//¸üĞÂÈİÆ÷±ê¼Ç
+		//æ›´æ–°å®¹å™¨æ ‡è®°
 		if (m_size == m_maxsize)
 			m_full_flag = true;
 		m_empty_flag = false;
@@ -432,73 +432,15 @@ bool Vessel<Type>::append(const Type& d)
 	return true;
 }
 
-//ÒÆ³ıËùÓĞÖ¸¶¨ÔªËØ
-//template<class Type>
-//bool Vessel<Type>::remove(const Type data)
-//{
-//	if (is_empty())
-//		return false;
-//
-//	//±éÀúËÑË÷
-//	bool search_flag = false;
-//	Node<Type>* p = m_head;
-//
-//	while (p != NULL) //(m_iterator != NULL)
-//	{
-//		bool head_del_flag = false;
-//		if (p->data() == data)
-//		{
-//			search_flag = true;
-//			if (p == m_head)
-//			{
-//				//É¾³ıµÄ½ÚµãÊÇÍ·½áµã
-//				m_head = p->next();
-//				if (m_head != NULL)
-//					m_head->set_pre(NULL);
-//				else
-//					m_rear = NULL;
-//				delete p;
-//				p = m_head;
-//				//iter_reset();
-//				head_del_flag = true;
-//			}
-//			else if (p == m_rear) //(m_iterator == m_rear)
-//			{
-//				//É¾³ıµÄÊÇÎ²½áµã
-//				m_rear = p->pre();
-//				m_rear->set_next(NULL);
-//				delete p;
-//				p = m_rear;
-//			}
-//			else
-//			{
-//				//É¾³ıµÄÊÇ³£¹æ½Úµã
-//				Node<Type>* temp = p->pre();//Iter<Node<Type>> temp = m_iterator.pre();
-//				p->pre()->set_next(p->next());
-//				p->next()->set_pre(p->pre());
-//				delete p;
-//				p = temp;
-//			}
-//			m_size -= 1;
-//			m_full_flag = false;
-//			if (m_size == 0)
-//				m_empty_flag = true;
-//		}
-//		if (!head_del_flag)
-//			p = p->next();
-//	}
-//	iter_reset();
-//	return search_flag;
-//}
-
+//ç§»é™¤æ‰€æœ‰ä¸ºæ•°æ®dataçš„èŠ‚ç‚¹
 template<class Type>
 bool Vessel<Type>::remove(const Type data)
 {
-	//ÈİÆ÷Îª¿Õ ²»Ö´ĞĞ²Ù×÷
+	//å®¹å™¨ä¸ºç©º ä¸æ‰§è¡Œæ“ä½œ
 	if (is_empty())
 		return false;
 
-	//Ñ­»·ËÑË÷
+	//å¾ªç¯æœç´¢
 	bool search_flag = false;
 	Node<Type>* p = m_head;
 	while (p!=NULL)
@@ -506,7 +448,7 @@ bool Vessel<Type>::remove(const Type data)
 		if (p->data() == data)
 		{
 			search_flag = true;
-			//Ö´ĞĞÉ¾³ı
+			//æ‰§è¡Œåˆ é™¤
 			if (p == m_head)
 			{
 				if (m_size == 1)
